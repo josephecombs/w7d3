@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
-      render :json => @user
+      redirect_to user_url(@user)
     else
       render :json => @user.errors.full_messages
     end
@@ -11,5 +11,9 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 end
