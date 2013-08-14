@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   validates :username, :presence => true
-  validates :password_digest, :presence => true, :message => "Password can't be blank"
-  validates :password, :length => { :minimum => 6 }, :allow_blank => true
+  validates :password_digest, :presence => { :message => "Password can't be blank" }
+  validates :password, :length => { :minimum => 6, :allow_blank => true }
 
   def password=(password)
     @password = password
