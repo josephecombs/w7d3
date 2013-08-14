@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
     if user.nil?
       render :json => "Credentials were wrong"
     else
+      self.current_user = user
       redirect_to user_url(user)
     end
   end
