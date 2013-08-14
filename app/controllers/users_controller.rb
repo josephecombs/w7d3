@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
   def create
-    @user = User.create!(params[:user])
+    @user = User.new(params[:user])
 
-    render :json => "User created successfully!"
+    if @user.save
+      render :json => @user
+    else
+      render :json => @user.errors.full_messages
+    end
   end
 
   def new
