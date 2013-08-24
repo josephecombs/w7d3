@@ -1,4 +1,4 @@
 NewAuthDemo::Application.routes.draw do
-  resources :users
-  resource :session
+  resources :users, :only => [:create, :new, :show]
+  resource :session, :only => [:create, :destroy, :new]
 end
