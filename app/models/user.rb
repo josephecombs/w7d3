@@ -2,32 +2,31 @@ class User < ActiveRecord::Base
   attr_accessible :username, :password
   attr_reader :password
 
-  validates :password_digest, :presence => { :message => "Password can't be blank" }
+  validates :password_digest, :presence => true
   validates :password, :length => { :minimum => 6, :allow_nil => true }
   validates :session_token, :presence => true
-  validates :username, :presence => true
+  validates :username, :presence => true, :uniqueness => true
 
-  after_initialize :ensure_session_token
+  before_validation :ensure_session_token
 
   def self.find_by_credentials(username, password)
     user = User.find_by_username(username)
-
-    return nil if user.nil?
-
-    user.is_password?(password) ? user : nil
+    user.try(:is_password?, password) ? user : nil
   end
 
   def self.generate_session_token
     SecureRandom::urlsafe_base64(16)
   end
 
-  def is_password?(password)
-    BCrypt::Password.new(self.password_digest).is_password?(password)
+  def is_password?(unencrypted_password)
+    BCrypt::Password.new(self.password_digest).is_password?(unencrypted_password)
   end
 
-  def password=(password)
-    @password = password
-    self.password_digest = BCrypt::Password.create(password)
+  def password=(unencrypted_password)
+    if unencrypted_password.present?
+      @password = unencrypted_password
+      self.password_digest = BCrypt::Password.create(unencrypted_password)
+    end
   end
 
   def reset_session_token!
@@ -36,6 +35,7 @@ class User < ActiveRecord::Base
   end
 
   private
+
   def ensure_session_token
     self.session_token ||= self.class.generate_session_token
   end

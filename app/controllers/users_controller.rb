@@ -1,20 +1,20 @@
 class UsersController < ApplicationController
-  before_filter :require_current_user!, :only => [:show]
-  before_filter :require_no_current_user!, :only => [:create, :new]
+  before_filter :require_signed_in!, :only => [:show]
+  before_filter :require_signed_out!, :only => [:create, :new]
+
+  def new
+    @user = User.new
+  end
 
   def create
     @user = User.new(params[:user])
 
     if @user.save
-      self.current_user = @user
+      sign_in!(@user)
       redirect_to user_url(@user)
     else
       render :json => @user.errors.full_messages
     end
-  end
-
-  def new
-    @user = User.new
   end
 
   def show
