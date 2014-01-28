@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   validates :password_digest, :presence => true
   validates :password, :length => { :minimum => 6, :allow_nil => true }
-  validates :session_token, :presence => true
+  validates :session_token, :presence => true, :uniqueness => true
   validates :username, :presence => true, :uniqueness => true
 
   before_validation :ensure_session_token
@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   def reset_session_token!
     self.session_token = self.class.generate_session_token
     self.save!
+    self.session_token
   end
 
   private
