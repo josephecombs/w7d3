@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :username, :password
   attr_reader :password
-
   validates :password_digest, :presence => true
   validates :password, :length => { :minimum => 6, :allow_nil => true }
   validates :session_token, :presence => true, :uniqueness => true
