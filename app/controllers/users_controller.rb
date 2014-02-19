@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :require_signed_in!, :only => [:show]
-  before_filter :require_signed_out!, :only => [:create, :new]
+  before_action :require_signed_in!, :only => [:show]
+  before_action :require_signed_out!, :only => [:create, :new]
 
   def new
     @user = User.new
