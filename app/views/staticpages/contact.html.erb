@@ -1,0 +1,53 @@
+<h1>Contact Globex</h1>
+<div class="row">
+  <div class="col-xs-4 col-xs-offset-1">
+    <div class="form-group">
+    <label for="message_subject">Subject</label>
+
+    <input
+       class="form-control"
+       id="message_subject"
+       name="message[subject]"
+       type="text">
+    </div>
+    <div class="form-group">
+    <label for="message_body">Message</label>
+    <input
+       class="form-control"
+       id="message_body"
+       name="message[body]"
+       type="textarea">
+    </div>
+    
+    <input type="button" class="btn btn-primary" value="Submit"></input>
+  </div>
+  
+  <div class="col-xs-6 col-xs-offset-1">
+    <table class="table table-striped">
+      <tr><td>Hank Scorpio, CEO</td></tr>
+      <tr><td>Homer Simpson, Director of Plant Safety</td></tr>
+      <tr><td>Joe Combs</td></tr>
+    </table>
+  </div>
+  
+  
+</div>
+
+<script>
+
+  $('.btn-primary').on('click', function () {
+    $('.has-error, .has-success').removeClass('has-error has-success')
+    var subject = $('#message_subject').val();
+    var body = $('#message_body').val();
+    if (body === "") {
+      $('#message_body').parent().addClass('has-error')
+    } else {
+      $('#message_body').parent().addClass('has-success')
+    }
+    if (subject === "") {
+      $('#message_subject').parent().addClass('has-error')
+    } else {
+      $('#message_subject').parent().addClass('has-success')
+    }
+  });
+</script>

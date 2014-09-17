@@ -2,29 +2,43 @@
 <% method = (user.persisted? ? "put" : "post") %>
 <% message = (user.persisted? ? "Update user" : "Create user") %>
 
-<form action="<%= action %>" method="post">
-  <input
-     name="_method"
-     type="hidden"
-     value="<%= method %>">
-  <input
-     name="authenticity_token"
-     type="hidden"
-     value="<%= form_authenticity_token %>">
+<div class="row">
+    <div class="col-xs-4 col-xs-offset-1">
+    <form action="<%= action %>" method="post" role="form">
+      <div class="form-group">
+        <input
+           name="_method"
+           type="hidden"
+           value="<%= method %>">
+        <input
+           name="authenticity_token"
+           type="hidden"
+           value="<%= form_authenticity_token %>">
+        <div class="form-group">
+        <label for="user_username">Username</label>
+  
+        <input
+           class="form-control"
+           id="user_username"
+           name="user[username]"
+           type="text">
+        </div>
+        <div class="form-group">
+        <label for="user_password">Password</label>
+        <input
+           class="form-control"
+           id="user_password"
+           name="user[password]"
+           type="password">
+        </div>
+        <button class="btn btn-primary"><%= message %></button>
+      </div>
+    </form>
+  </div>
+  
+  <div class="col-xs-4 col-xs-offset-1">I won't let you steal my watch.  I see you looking at my watch, that's because I never cease watching.  You'd better stop looking at my watch.  I know you're doing it.
+  </div>
 
-  <label for="user_username">Username</label>
-  <input
-     id="user_username"
-     name="user[username]"
-     type="text">
-  <br>
-
-  <label for="user_password">Password</label>
-  <input
-     id="user_password"
-     name="user[password]"
-     type="password">
-  <br>
-
-  <input type="submit" value="<%= message %>">
-</form>
+  
+  
+</div>
