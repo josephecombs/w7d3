@@ -14,3 +14,16 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.carousel img {
+  min-height: 300px;
+  min-width: 300px;
+}
+
+.carousel {
+  display: block;
+}
+
+.sidebar {
+  position: relative;
+}
